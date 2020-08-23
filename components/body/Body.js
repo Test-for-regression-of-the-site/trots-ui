@@ -69,14 +69,14 @@ function clearUrl(value) {
 const Body = props => {
     return (
         props.json.map((item, index) =>
-            <Wrapper key={item.requestedUrl}>
+            <Wrapper key={JSON.parse(item).requestedUrl}>
                 <div className="resultTest">
                     <div className="siteLink">
-                        <h3>{item.requestedUrl}</h3>
+                        <h3>{JSON.parse(item).requestedUrl}</h3>
                     </div>
                     <div className="resultBar">
-                        <ProgressBar json={item}/>
-                        <Link href={`/p?id=${index}`} as={`./p/${index}.html`}>
+                        <ProgressBar json={JSON.parse(item)}/>
+                        <Link href={`/p?id=${index}`} as={`./p/${index}`}>
                             <a className="buttonSeeMore">
                                 See more
                             </a>

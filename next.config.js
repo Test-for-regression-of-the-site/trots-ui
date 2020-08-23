@@ -6,7 +6,7 @@ module.exports = {
     const paths = {
       '/': { page: '/' }
     };
-    const reportJson = await fetch('http://192.168.12.118:2020/getJson')
+    const reportJson = await fetch('http://192.168.1.4:2020/getJson')
         .then(res=> res.json()).then(res => {return res});
 
     reportJson.forEach((result, index) => {

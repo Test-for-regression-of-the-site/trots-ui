@@ -16,10 +16,12 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 app.get('/getJson', function(req, res){
-    const reportResult = fs.readFileSync('./reports/testresult.json', 'utf8');
-    res.status(200).send(reportResult)
+		const test = [];
+		const reportResult = fs.readFileSync('./reports/testresult1.json', 'utf8');
+		test.push(reportResult)
+		res.status(200).send(test)
 });
 
 app.listen(2020, function () {
-  console.log('Example app listening on port 2020!');
+  	console.log('Example app listening on port 2020!');
 });
