@@ -1,0 +1,11 @@
+version: "3.7"
+services: 
+  lighthouse:
+    image: test:latest
+    shm_size: 2G
+    command: node ./getReport/lighthouse-reports.js
+    deploy:
+      mode: replicated
+      replicas: 2
+
+  
