@@ -1,89 +1,66 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import ProgressBar from './progressbar/progressbar';
-import Link from 'next/link';
+import Dashboard from './progressbar/dashboard.js';
 
-const Wrapper = styled.div`
+const StyledBodyReports = styled.div`
+    display: flex;
+    height: 100%;
+`
 
-        height: 100%;
+const StyledLeftPanel = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+    height: 100%;
+    background-color: #FF9640;
+
+    div {
+        text-align: center;
         width: 100%;
-
-    & .resultTest {
-        height: 100%;
-        padding: 5px;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    & .siteLink {
-        height: 15%;
-        text-align: center;
-        background-color: #179af5;
+        padding: 20px 0px 20px 0px;
+        cursor: pointer;
     }
 
-    & .resultBar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 85%;
-        border-bottom: 1px solid black;
-        background: #d6eaf8;
-    }
-
-    & h3 {
-        margin: 0;
-    }
-
-    & .buttonSeeMore {
-        text-decoration: none;
-        outline: none;
-        display: inline-block;
-        width: 140px;
-        height: 45px;
-        line-height: 45px;
-        border-radius: 45px;
-        margin: 10px 20px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 11px;
-        text-transform: uppercase;
-        text-align: center;
-        letter-spacing: 3px;
-        font-weight: 600;
-        color: #423f3e;
-        background: white;
-        box-shadow: 0 8px 15px rgba(0,0,0,.1);
-        transition: .3s;
-    }
-
-    & .buttonSeeMore:hover {
-        background: #2EE59D;
-        box-shadow: 0 15px 20px rgba(46,229,157,.4);
-        color: white;
-        transform: translateY(-7px);
+    div:hover {
+        background-color: #FF7400;
     }
 `
 
-function clearUrl(value) {
-    return value.split('https://')[1];
-}
+const StyledDashboardPanel = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+    justify-content: center;
+`
 
-const Body = props => {
+const Body = ({ json }) => {
+
+    const [ currentTest, setTest ] = useState('');
+
+    function chooseTime(time) {
+        setTest(time);
+    }
+
     return (
-        props.json.map((item, index) =>
-            <Wrapper key={JSON.parse(item).requestedUrl}>
-                <div className="resultTest">
-                    <div className="siteLink">
-                        <h3>{JSON.parse(item).requestedUrl}</h3>
-                    </div>
-                    <div className="resultBar">
-                        <ProgressBar json={JSON.parse(item)}/>
-                        <Link href={`/p?id=${index}`} as={`./p/${index}`}>
-                            <a className="buttonSeeMore">
-                                See more
-                            </a>
-                        </Link>
-                    </div>
-                </div>
-            </Wrapper>)   
+        <StyledBodyReports>
+            <StyledLeftPanel>
+                {
+                    Object.keys(json).map((item, i) => 
+                        <div key={i} onClick={() => chooseTime(item)}>{item}</div>
+                    )    
+                }
+            </StyledLeftPanel>
+            <StyledDashboardPanel>
+                {
+                    currentTest === '' && <h1>Выберете время запуска теста</h1>
+                }
+                {
+                    currentTest != '' && <Dashboard json={json[currentTest]}/>
+                }
+            </StyledDashboardPanel>
+        </StyledBodyReports>
     );
 }
 

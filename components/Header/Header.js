@@ -1,40 +1,40 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+import Link from 'next/link';
 
-const Wrapper = styled.div`
-    & .Header {
-    text-align:  center;
-    height: 200px;
-    position: relative;
-    padding-top: 40px;
-    color: #383127;
-}
-    & h1 {
-        position: absolute;
-        width: 100%;
-        padding: 0;
-        margin: 0;
-        z-index: 1;
-        top: 0;
-    }
-    & .lighthouse {
-        height: 80%;
-    }
-    & .lighthouse img {
-        height: 50%;
+const StyledHeader = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #009999;
+
+    div {
+        display: flex;
+        flex-direction: row;
+        flex-flow: row nowrap;
+        justify-content: center;
+        border-radius: 12px;
+        padding: 20px;
+        width: 30%;
     }
 `
 
 const Header = () => (
-    <Wrapper>
-        <div className="Header">
-        <div className='lighthouse'>
-            <img src="https://raw.githubusercontent.com/GoogleChrome/lighthouse/8b3d7f052b2e64dd857e741d7395647f487697e7/assets/lighthouse-logo.png"></img>
+    <StyledHeader>
+        <div>
+            <Link href="/pageTest/startTest" as='/pageTest/startTest' >
+                <a>
+                    Запуск теста
+                </a>
+            </Link>
         </div>
-        <h1>
-            Результаты тестов
-        </h1>
-    </div>
-    </Wrapper>
+        <div>
+            <Link href="/pageTest/viewReports" as='/pageTest/viewReports' >
+                <a>
+                    Результаты
+                </a>
+            </Link>
+        </div>
+    </StyledHeader>
 );
 
 export default Header;
