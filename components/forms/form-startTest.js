@@ -92,7 +92,7 @@ const FormStartTest = () => {
         const name = target.name;
         setValue({
             ...currentValue,
-            [name]: value
+            [name]: +value
         });
     }
 
