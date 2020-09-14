@@ -122,12 +122,15 @@ const FormStartTest = () => {
                 typetest: currentValue.typetest
             })
         });
+
         event.preventDefault();
         setValue({
             links: '',
             paralel:'',
             typetest: ''
         });
+
+        window.location.assign('/pageTest/viewReports');
     }
     return(
         <StyledForm>
