@@ -1,0 +1,157 @@
+swagger: "2.0"
+info:
+  description: "The first version of the site regression testing software service"
+  version: "1.0.0"
+  title: "Trots"
+tags:
+- name: "tasks"
+  description: "All service requests"
+    
+paths:
+  /tasks:
+    post:
+      tags: 
+      - "tasks"
+      summary: "Start of testing"
+      description: "Формирование настроек для запуска сессии тестирования"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Data for running the test"
+        required: true
+        schema:
+          $ref: "#/definitions/StartTest"
+      responses:
+        "405":
+          description: "Invalid input"
+        "200": 
+          description: 'Status ok'
+  /tasks/dashboard:        
+    get:
+      tags:
+      - "tasks"
+      summary: "Start of testing"
+      description: 'Метод для получения сокращённых, наиболее важных для дажборда данных'
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "405":
+          description: "Invalid input"
+        "200": 
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Reports"
+  /tasks/{UUID}/{ID}:
+    get:
+      tags:
+      - "tasks"
+      summary: "Getting a full test report"
+      description: 'Формирование ссылки для запроса и получения полного отчета тетсирования в формате JSON. UUID - это уникальный номер запуска сессии набора тестов. ID - это уникальынй номер теста по каждой ссылке.'
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: UUID
+          in: path
+          description: Test session UUID
+          required: true
+          type: number
+        - name: ID
+          in: path
+          description: Test number ID
+          required: true
+          type: number
+      responses:
+        "405":
+          description: "Invalid input"
+        "200": 
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ReportAllJson"
+      
+definitions:
+  StartTest: 
+    type: "object"
+    properties:
+      timeCreate:
+        type: "integer"
+        format: "int64"
+        example: 1600076514948
+        description: 'Время отправки запроса и начала запуска тестов. Формируется на фронте на странице Запуск тестов'
+      links:
+        type: "array"
+        items:
+          type: "string"
+          example: "www.google.ru"
+          description: 'Сылки для тестирования. Формируется на фронте на странице Запуск тестов'
+      paralel:
+        type: "integer"
+        format: "int64"
+        example: 6
+        description: 'Количество контейнеров, которые запускаются одновременно. Может содержать от 1 до 10. Формируется на фронте на странице Запуск тестов'
+      typetest:
+        type: "string"
+        example: 'mobile'
+        description: 'Вид тестов. Может иметь значение desktop и mobile. Формируется на фронте на странице Запуск тестов'
+        
+  BodyShortDashboard:
+    type: 'object'
+    properties:
+      id: 
+        type: 'string'
+        example: '14352435446546'
+        description: 'Номер конкретного отчёта(JSON-на)'
+      performance:
+        type: 'string'
+        example: '87'
+        description: 'Число performance из отчёта'
+      accessibility: 
+        type: 'string'
+        example: '87'
+        description: 'Число accessibility из отчёта'
+      bestPractices: 
+        type: 'string'
+        example: '87'
+        description: 'Число best practices из отчёта'
+      seo:
+        type: 'string'
+        example: '87'
+        description: 'Число SEO из отчёта'
+      progressiveWebApp: 
+        type: 'string'
+        example: '87'
+        description: 'Число Progressive Web App из отчёта'
+  ShortDashboard:
+    type: 'array'
+    items:
+      $ref: "#/definitions/BodyShortDashboard"
+  Dashboard:
+    type: 'object'
+    properties:
+      UUID:
+        $ref: "#/definitions/ShortDashboard"
+  Reports:
+    type: "object"
+    properties: 
+      proccesEnd: 
+        type: 'boolean'
+        example: false
+        description: 'Имеет два ответа true - нет активных контейнеров тестов и false - есть активные контейнеры тестов.'
+      shortDashboard:
+        items:
+          $ref: "#/definitions/Dashboard"
+  ReportAllJson:
+    type: "object"
+    properties:
+      result: 
+        type: 'object'
+        description: 'Содержит полный отчёт о конкретном тесте'
+          
+      
