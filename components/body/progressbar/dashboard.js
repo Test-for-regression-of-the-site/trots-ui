@@ -61,24 +61,27 @@ const Wrapper = styled.div`
     }
 `
 
-const Dashboard = ({ json }) => {
+const Dashboard = ({ json, uuid }) => {
     return (
-        json.map((item, index) =>
-            <Wrapper key={JSON.parse(item).requestedUrl}>
-                <div className="resultTest">
-                    <div className="siteLink">
-                        <h3>{JSON.parse(item).requestedUrl}</h3>
+        json.map((item, index) => {
+            console.log(item.url)
+            return(
+                <Wrapper key={item.id}>
+                    <div className="resultTest">
+                        <div className="siteLink">
+                            <h3>{item.url}</h3>
+                        </div>
+                        <div className="resultBar">
+                            <ProgressBar json={item}/>
+                            <Link href={`/p?uuid=${`${uuid}?id=${item.id}`}`} as={`/p/${`${uuid}?id=${item.id}`}`}>
+                                <a className="buttonSeeMore">
+                                    Подробнее
+                                </a>
+                            </Link>
+                        </div>
                     </div>
-                    <div className="resultBar">
-                        <ProgressBar json={JSON.parse(item)}/>
-                        <Link href={`/p?id=${index}`} as={`/p/${index}`}>
-                            <a className="buttonSeeMore">
-                                Подробнее
-                            </a>
-                        </Link>
-                    </div>
-                </div>
-            </Wrapper>)   
+                </Wrapper>)   
+        })
     );
 }
 

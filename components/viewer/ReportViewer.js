@@ -38,7 +38,6 @@ class ReportViewer extends Component {
 
   generateReport() {
     const { json } = this.props;
-    console.log(json)
 
     const dom = new DOM(document);
     const renderer = new ReportRenderer(dom);

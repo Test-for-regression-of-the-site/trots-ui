@@ -1,39 +1,39 @@
 import { CircularProgressbar } from 'react-circular-progressbar';
 import {StyledProgress, Wrapper} from './Styled'
 
-const ProgressBar = props => {
+const ProgressBar = ({ json }) => {
     return (
         <Wrapper>
             <div className='tableResult'>
                 <div className="Performance">
-                    <StyledProgress className='block' value={props.json.categories.performance.score}>
-                        <CircularProgressbar value={props.json.categories.performance.score} maxValue={1} text={`${props.json.categories.performance.score * 100}%`} />
+                    <StyledProgress className='block' value={json.performance}>
+                        <CircularProgressbar value={json.performance} maxValue={1} text={`${json.performance}%`} />
                         <p className='categoryName'>Performance</p>
                     </StyledProgress>
 
                 </div>
                 <div className="Accessibility">
-                    <StyledProgress value={props.json.categories.accessibility.score}>
-                        <CircularProgressbar value={props.json.categories.accessibility.score} maxValue={1} text={`${props.json.categories.accessibility.score * 100}%`} />
+                    <StyledProgress value={json.accessibility}>
+                        <CircularProgressbar value={json.accessibility} maxValue={1} text={`${json.accessibility}%`} />
                         <p className='categoryName'>Accessibility</p>
                     </StyledProgress>
 
                 </div>
                 <div className="Best Practices">
-                    <StyledProgress value={props.json.categories['best-practices'].score}>
-                        <CircularProgressbar value={props.json.categories['best-practices'].score} maxValue={1} text={`${props.json.categories['best-practices'].score * 100}%`} />
+                    <StyledProgress value={json.bestPractices}>
+                        <CircularProgressbar value={json.bestPractices} maxValue={1} text={`${json.bestPractices}%`} />
                         <p className='categoryName'>Best Practices</p>
                     </StyledProgress>
                 </div>
                 <div className="SEO">
-                    <StyledProgress value={props.json.categories.seo.score}>
-                        <CircularProgressbar value={props.json.categories.seo.score} maxValue={1} text={`${props.json.categories.seo.score * 100}%`} />
+                    <StyledProgress value={json.seo}>
+                        <CircularProgressbar value={json.seo} maxValue={1} text={`${json.seo}%`} />
                         <p className='categoryName'>SEO</p>
                     </StyledProgress>
                 </div>
                 <div className="Progressive Web App">
-                    <StyledProgress value={props.json.categories.pwa.score}>
-                        <CircularProgressbar value={props.json.categories.pwa.score} maxValue={1} text={`${parseInt(props.json.categories.pwa.score * 100, 10)}%`} />
+                    <StyledProgress value={json.progressiveWebApp}>
+                        <CircularProgressbar value={json.progressiveWebApp} maxValue={1} text={`${json.progressiveWebApp}%`} />
                         <p className='categoryName'>Progressive Web App</p>
                     </StyledProgress>
                 </div>

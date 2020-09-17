@@ -18,7 +18,7 @@ const ViewReports = ( { response } ) => {
 }
 
 ViewReports.getInitialProps = async () =>  {
-    const reportJson = await fetch('http://192.168.1.4:2020/getJsonTest')
+    const reportJson = await fetch('http://192.168.1.4:2020/tasks/dashboard')
         .then(res => res.json()).then(res => { return res })
     return {
         response: reportJson

@@ -42,6 +42,61 @@ app.post('/startTest', function(req, res) {
 	console.log(req.body)
 });
 
+app.get('/tasks/dashboard', function(res, req) {
+	const result = {
+		"proccesEnd": false,
+		"shortDashboard": [
+			{
+				"1602675700000": [
+					{
+						"id": "14352435446546",
+						"url": "test",
+						"performance": "87",
+						"accessibility": "87",
+						"bestPractices": "87",
+						"seo": "87",
+						"progressiveWebApp": "87"
+					}
+				]
+			},
+			{
+				"1602676700000": [
+					{
+						"id": "14352435446546",
+						"url": "test",
+						"performance": "87",
+						"accessibility": "87",
+						"bestPractices": "87",
+						"seo": "87",
+						"progressiveWebApp": "87"
+					}
+				]
+			},
+			{
+				"1602677700000": [
+					{
+						"id": "14352435446546",
+						"url": "test",
+						"performance": "87",
+						"accessibility": "87",
+						"bestPractices": "87",
+						"seo": "87",
+						"progressiveWebApp": "87"
+					}
+				]
+			}
+		]
+	}
+	req.status(200).send(result)
+})
+
+app.get('/1602675700000/14352435446546', function(req, res) {
+	const test = [];
+	const reportResult = fs.readFileSync('./reports/testresult1.json', 'utf8');
+	test.push(reportResult)
+	res.status(200).send(test)
+});
+
 app.listen(2020, function () {
   	console.log('Example app listening on port 2020!');
 });

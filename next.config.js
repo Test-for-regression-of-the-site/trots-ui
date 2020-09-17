@@ -2,7 +2,8 @@ const fetch = require('isomorphic-unfetch');
 
 module.exports = {
   assetPrefix: '../',
-  exportPathMap: async function() {
+  exportPathMap: async function(ctx) {
+	  	console.log(ctx)
 		const paths = {
 			'/': { page: '/' }
 		};

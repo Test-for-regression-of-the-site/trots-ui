@@ -38,17 +38,41 @@ const StyledDashboardPanel = styled.div`
 const Body = ({ json }) => {
 
     const [ currentTest, setTest ] = useState('');
+    const [ currentNUmberArray, serNubberArray] = useState('');
 
-    function chooseTime(time) {
+    function chooseTime(time, i) {
         setTest(time);
+        serNubberArray(i);
     }
 
     return (
         <StyledBodyReports>
             <StyledLeftPanel>
                 {
-                    Object.keys(json).map((item, i) => 
-                        <div key={i} onClick={() => chooseTime(item)}>{item}</div>
+                    json.shortDashboard.map((item, i) => {
+                        const getTime = Object.keys(item)[0];
+                        const allMonth = [ 'January',
+                            'February',
+                            'March',
+                            'April',
+                            'May',
+                            'June',
+                            'July',
+                            'August',
+                            'September',
+                            'October',
+                            'November',
+                            'December' 
+                        ];
+                        const date = new Date(+getTime);
+                        const day = date.getDay();
+                        const hour = date.getHours();
+                        const minute = date.getMinutes();
+                        const month = date.getMonth();
+                        return(
+                            <div key={i} onClick={() => chooseTime(getTime, i)}>{`${day} ${allMonth[month]} - ${hour}:${minute}`}</div>
+                        )
+                    }
                     )    
                 }
             </StyledLeftPanel>
@@ -57,7 +81,7 @@ const Body = ({ json }) => {
                     currentTest === '' && <h1>Выберете время запуска теста</h1>
                 }
                 {
-                    currentTest != '' && <Dashboard json={json[currentTest]}/>
+                    currentTest != '' && <Dashboard uuid={currentTest} json={json.shortDashboard[currentNUmberArray][currentTest]}/>
                 }
             </StyledDashboardPanel>
         </StyledBodyReports>

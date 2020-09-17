@@ -17,8 +17,8 @@ const Wrapper = styled.div`
     }
 
     & .blockBody {
-        height: 200px;
-        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 `
 
@@ -39,31 +39,12 @@ class PageHome extends React.Component {
                         <Header />
                     </div>
                     <div className='blockBody'>
-                        <Body json={this.props.response} />
+                        <h1>Начнём тестирование!</h1>
                     </div>
                 </div>
             </Wrapper>
         )
     }
 }
-
-// class PageHome =(props) => {
-//     state = {
-//         img: props.audits['screenshot-thumbnails'].details.items[9].data
-//     };
-//     // console.log(props.res[0]);
-//     return (
-//         <Wrapper>
-//             <div className='allContent'>
-//                 <div className='blockHeader'>
-//                     <Header />
-//                 </div>
-//                 <div className='blockBody'>
-//                     <Body />
-//                 </div>
-//             </div>
-//         </Wrapper>
-//     )
-// }
 
 export default PageHome;
