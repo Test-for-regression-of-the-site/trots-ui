@@ -5,7 +5,6 @@ import Link from 'next/link';
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 100%;
 
     & .resultTest {
@@ -63,8 +62,7 @@ const Wrapper = styled.div`
 
 const Dashboard = ({ json, uuid }) => {
     return (
-        json.map((item, index) => {
-            console.log(item.url)
+        json.map(item => {
             return(
                 <Wrapper key={item.id}>
                     <div className="resultTest">

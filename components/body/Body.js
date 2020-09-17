@@ -12,7 +12,7 @@ const StyledLeftPanel = styled.div`
     flex-direction: column;
     align-items: center;
     width: 25%;
-    height: 100%;
+    height: 2000px;
     background-color: #FF9640;
 
     div {
@@ -31,8 +31,9 @@ const StyledDashboardPanel = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 2000px;
     width: 75%;
-    justify-content: center;
+    justify-content: start;
 `
 
 const Body = ({ json }) => {
