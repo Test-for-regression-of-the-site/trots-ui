@@ -51,6 +51,51 @@ app.get('/tasks/dashboard', function(res, req) {
 					{
 						"id": "14352435446546",
 						"url": "test",
+						"performance": 10,
+						"accessibility": 30,
+						"bestPractices": 60,
+						"seo": 80,
+						"progressiveWebApp": 100
+					},
+					{
+						"id": "14352435446541",
+						"url": "test",
+						"performance": "87",
+						"accessibility": "87",
+						"bestPractices": "87",
+						"seo": "87",
+						"progressiveWebApp": "87"
+					},
+					{
+						"id": "14352435446542",
+						"url": "test",
+						"performance": "87",
+						"accessibility": "87",
+						"bestPractices": "87",
+						"seo": "87",
+						"progressiveWebApp": "87"
+					},
+					{
+						"id": "14352435446543",
+						"url": "test",
+						"performance": "87",
+						"accessibility": "87",
+						"bestPractices": "87",
+						"seo": "87",
+						"progressiveWebApp": "87"
+					},
+					{
+						"id": "14352435446543",
+						"url": "test",
+						"performance": "87",
+						"accessibility": "87",
+						"bestPractices": "87",
+						"seo": "87",
+						"progressiveWebApp": "87"
+					},
+					{
+						"id": "14352435446543",
+						"url": "test",
 						"performance": "87",
 						"accessibility": "87",
 						"bestPractices": "87",

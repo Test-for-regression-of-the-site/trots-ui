@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 function chooseColor(value) {
-    const newValue = value * 100
+    const newValue = value
     if (newValue >= 90) {
         return `green`
     }
