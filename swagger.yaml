@@ -1,62 +1,64 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "The first version of the site regression testing software service"
-  version: "1.0.0"
-  title: "Trots"
+  description: The first version of the site regression testing software service
+  version: 1.0.0
+  title: Trots
 tags:
-- name: "tasks"
-  description: "All service requests"
-    
+  - name: tasks
+    description: All service requests
 paths:
   /tasks:
     post:
-      tags: 
-      - "tasks"
-      summary: "Start of testing"
-      description: "Формирование настроек для запуска сессии тестирования"
+      tags:
+        - tasks
+      summary: Start of testing
+      description: Формирование настроек для запуска сессии тестирования
       consumes:
-      - "application/json"
+        - application/json
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Data for running the test"
-        required: true
-        schema:
-          $ref: "#/definitions/StartTest"
+        - in: body
+          name: body
+          description: Data for running the test
+          required: true
+          schema:
+            $ref: '#/definitions/StartTest'
       responses:
-        "405":
-          description: "Invalid input"
-        "200": 
-          description: 'Status ok'
-  /tasks/dashboard:        
+        '200':
+          description: Status ok
+        '405':
+          description: Invalid input
+  /tasks/dashboard:
     get:
       tags:
-      - "tasks"
-      summary: "Start of testing"
+        - tasks
+      summary: Start of testing
       description: 'Метод для получения сокращённых, наиболее важных для дажборда данных'
       consumes:
-      - "application/json"
+        - application/json
       produces:
-      - "application/json"
+        - application/json
       responses:
-        "405":
-          description: "Invalid input"
-        "200": 
-          description: "successful operation"
+        '200':
+          description: successful operation
           schema:
-            $ref: "#/definitions/Reports"
-  /tasks/{UUID}/{ID}:
+            $ref: '#/definitions/Reports'
+        '405':
+          description: Invalid input
+  '/tasks/{UUID}/{ID}':
     get:
       tags:
-      - "tasks"
-      summary: "Getting a full test report"
-      description: 'Формирование ссылки для запроса и получения полного отчета тетсирования в формате JSON. UUID - это уникальный номер запуска сессии набора тестов. ID - это уникальынй номер теста по каждой ссылке.'
+        - tasks
+      summary: Getting a full test report
+      description: >-
+        Формирование ссылки для запроса и получения полного отчета тетсирования
+        в формате JSON. UUID - это уникальный номер запуска сессии набора
+        тестов. ID - это уникальынй номер теста по каждой ссылке.
       consumes:
-      - "application/json"
+        - application/json
       produces:
-      - "application/json"
+        - application/json
       parameters:
         - name: UUID
           in: path
@@ -69,89 +71,99 @@ paths:
           required: true
           type: number
       responses:
-        "405":
-          description: "Invalid input"
-        "200": 
-          description: "successful operation"
+        '200':
+          description: successful operation
           schema:
-            $ref: "#/definitions/ReportAllJson"
-      
+            $ref: '#/definitions/ReportAllJson'
+        '405':
+          description: Invalid input
 definitions:
-  StartTest: 
-    type: "object"
+  StartTest:
+    type: object
     properties:
       timeCreate:
-        type: "integer"
-        format: "int64"
+        type: integer
+        format: int64
         example: 1600076514948
-        description: 'Время отправки запроса и начала запуска тестов. Формируется на фронте на странице Запуск тестов'
+        description: >-
+          Время отправки запроса и начала запуска тестов. Формируется на фронте
+          на странице Запуск тестов
       links:
-        type: "array"
+        type: array
         items:
-          type: "string"
-          example: "www.google.ru"
-          description: 'Сылки для тестирования. Формируется на фронте на странице Запуск тестов'
+          type: string
+          example: www.google.ru
+          description: >-
+            Сылки для тестирования. Формируется на фронте на странице Запуск
+            тестов
       paralel:
-        type: "integer"
-        format: "int64"
+        type: integer
+        format: int64
         example: 6
-        description: 'Количество контейнеров, которые запускаются одновременно. Может содержать от 1 до 10. Формируется на фронте на странице Запуск тестов'
+        description: >-
+          Количество контейнеров, которые запускаются одновременно. Может
+          содержать от 1 до 10. Формируется на фронте на странице Запуск тестов
       typetest:
-        type: "string"
-        example: 'mobile'
-        description: 'Вид тестов. Может иметь значение desktop и mobile. Формируется на фронте на странице Запуск тестов'
-        
+        type: string
+        example: mobile
+        description: >-
+          Вид тестов. Может иметь значение desktop и mobile. Формируется на
+          фронте на странице Запуск тестов
   BodyShortDashboard:
-    type: 'object'
+    type: object
     properties:
-      id: 
-        type: 'string'
+      id:
+        type: string
         example: '14352435446546'
-        description: 'Номер конкретного отчёта(JSON-на)'
+        description: Номер конкретного отчёта(JSON-на)
+      url:
+        type: string
+        example: 'www.google.com'
+        description: Url тестироемой страницы
       performance:
-        type: 'string'
-        example: '87'
-        description: 'Число performance из отчёта'
-      accessibility: 
-        type: 'string'
-        example: '87'
-        description: 'Число accessibility из отчёта'
-      bestPractices: 
-        type: 'string'
-        example: '87'
-        description: 'Число best practices из отчёта'
+        type: number
+        example: 87
+        description: Число performance из отчёта
+      accessibility:
+        type: number
+        example: 87
+        description: Число accessibility из отчёта
+      bestPractices:
+        type: number
+        example: 87
+        description: Число best practices из отчёта
       seo:
-        type: 'string'
-        example: '87'
-        description: 'Число SEO из отчёта'
-      progressiveWebApp: 
-        type: 'string'
-        example: '87'
-        description: 'Число Progressive Web App из отчёта'
+        type: number
+        example: 87
+        description: Число SEO из отчёта
+      progressiveWebApp:
+        type: number
+        example: 87
+        description: Число Progressive Web App из отчёта
   ShortDashboard:
-    type: 'array'
+    type: array
     items:
-      $ref: "#/definitions/BodyShortDashboard"
+      $ref: '#/definitions/BodyShortDashboard'
   Dashboard:
-    type: 'object'
+    type: object
     properties:
       UUID:
-        $ref: "#/definitions/ShortDashboard"
+        $ref: '#/definitions/ShortDashboard'
   Reports:
-    type: "object"
-    properties: 
-      proccesEnd: 
-        type: 'boolean'
+    type: object
+    properties:
+      proccesEnd:
+        type: boolean
         example: false
-        description: 'Имеет два ответа true - нет активных контейнеров тестов и false - есть активные контейнеры тестов.'
+        description: >-
+          Имеет два ответа true - нет активных контейнеров тестов и false - есть
+          активные контейнеры тестов.
       shortDashboard:
         items:
-          $ref: "#/definitions/Dashboard"
+          $ref: '#/definitions/Dashboard'
   ReportAllJson:
-    type: "object"
+    type: object
     properties:
-      result: 
-        type: 'object'
-        description: 'Содержит полный отчёт о конкретном тесте'
-          
-      
+      result:
+        type: object
+        description: Содержит полный отчёт о конкретном тесте
