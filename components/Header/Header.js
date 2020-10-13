@@ -62,7 +62,7 @@ const Header = () => (
         <div className="nameProgect">
             <Link href="/" as='/' >
                 <p>
-                    Lighthause
+                    Lighthouse
                 </p>
             </Link>
         </div>
