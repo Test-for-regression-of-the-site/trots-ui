@@ -47,95 +47,68 @@ app.get('/tasks/dashboard', function(res, req) {
 		"proccesEnd": false,
 		"shortDashboard": [
 			{
-				"1602675700000": [
-					{
-						"id": "14352435446546",
-						"url": "test",
-						"performance": 10,
-						"accessibility": 30,
-						"bestPractices": 60,
-						"seo": 80,
-						"progressiveWebApp": 100
-					},
-					{
-						"id": "14352435446541",
-						"url": "test",
-						"performance": "87",
-						"accessibility": "87",
-						"bestPractices": "87",
-						"seo": "87",
-						"progressiveWebApp": "87"
-					},
-					{
-						"id": "14352435446542",
-						"url": "test",
-						"performance": "87",
-						"accessibility": "87",
-						"bestPractices": "87",
-						"seo": "87",
-						"progressiveWebApp": "87"
-					},
-					{
-						"id": "14352435446543",
-						"url": "test",
-						"performance": "87",
-						"accessibility": "87",
-						"bestPractices": "87",
-						"seo": "87",
-						"progressiveWebApp": "87"
-					},
-					{
-						"id": "14352435446543",
-						"url": "test",
-						"performance": "87",
-						"accessibility": "87",
-						"bestPractices": "87",
-						"seo": "87",
-						"progressiveWebApp": "87"
-					},
-					{
-						"id": "14352435446543",
-						"url": "test",
-						"performance": "87",
-						"accessibility": "87",
-						"bestPractices": "87",
-						"seo": "87",
-						"progressiveWebApp": "87"
-					}
-				]
+				"1602675700000a": {
+					creationTime: '1602675700000',
+					tests: [
+						{
+							"id": "14352435446546",
+							"url": "https://google.com",
+							"performance": 0.79,
+							"accessibility": 0.9,
+							"bestPractices": 0.92,
+							"seo": 0.85,
+							"progressiveWebApp": 0.54
+						},
+						{
+							"id": "14352435446541",
+							"url": "https://vk.com",
+							"performance": 0.38,
+							"accessibility": 0.67,
+							"bestPractices": 0.01,
+							"seo": 1,
+							"progressiveWebApp": 0.82
+						}
+					]
+				}
 			},
 			{
-				"1602676700000": [
-					{
-						"id": "14352435446546",
-						"url": "test",
-						"performance": "87",
-						"accessibility": "87",
-						"bestPractices": "87",
-						"seo": "87",
-						"progressiveWebApp": "87"
-					}
-				]
+				"1602676700000b": {
+					creationTime: 1602676700000,
+					tests: [
+						{
+							"id": "14352435446541",
+							"url": "https://vk.com",
+							"performance": 0.38,
+							"accessibility": 0.67,
+							"bestPractices": 0,
+							"seo": 1,
+							"progressiveWebApp": 0.82
+						}
+					]
+				}
 			},
 			{
-				"1602677700000": [
-					{
-						"id": "14352435446546",
-						"url": "test",
-						"performance": "87",
-						"accessibility": "87",
-						"bestPractices": "87",
-						"seo": "87",
-						"progressiveWebApp": "87"
-					}
-				]
+				"1602677700000c":{
+					creationTime: "1602677700000",
+					tests: [
+						{
+							"id": "14352435446541",
+							"url": "https://vk.com",
+							"performance": 0.38,
+							"accessibility": 0.67,
+							"bestPractices": 0,
+							"seo": 1,
+							"progressiveWebApp": 0.82
+						}
+					]
+				} 
 			}
 		]
 	}
 	req.status(200).send(result)
 })
 
-app.get('/1602675700000/14352435446546', function(req, res) {
+app.get('/1602675700000a/14352435446546', function(req, res) {
 	const test = [];
 	const reportResult = fs.readFileSync('./reports/testresult1.json', 'utf8');
 	test.push(reportResult)

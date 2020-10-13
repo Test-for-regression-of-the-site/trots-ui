@@ -1,33 +1,25 @@
 import styled from 'styled-components';
 
 function chooseColor(value) {
-    const newValue = value
+    const newValue = +value * 100
     if (newValue >= 90) {
-        return `green`
+        return `#4DDE00`
     }
     if (newValue < 90 && newValue >= 50) {
-        return 'rgb(230,119,0)'
+        return '#FFC500'
     } 
     if (newValue <= 49) {
-        return 'rgb(198,34,41)'
+        return '#E9003A'
     }
-};
+}
 
 
 export const Wrapper = styled.div`
 
     width: 80%;
     & .CircularProgressbar {
-            /*
-            * This fixes an issue where the CircularProgressbar svg has
-            * 0 width inside a "display: flex" container, and thus not visible.
-            */
-            width: 100px;
-            height: 100px;
-            /*
-            * This fixes a centering issue with CircularProgressbarWithChildren:
-            * https://github.com/kevinsqi/react-circular-progressbar/issues/94
-            */
+            width: 80px;
+            height: 80px;
             vertical-align: middle;
     }
     & .CircularProgressbar .CircularProgressbar-path {
@@ -79,7 +71,7 @@ export const Wrapper = styled.div`
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        height: 140px;
+        height: 120px;
         margin-left: 10%;
     }
 
@@ -90,6 +82,20 @@ export const Wrapper = styled.div`
     }
 `
 export const StyledProgress = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    p {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: -0.02em;
+
+        color: #111111;
+    }
 
     & .CircularProgressbar .CircularProgressbar-path {
         stroke: ${props => chooseColor(props.value)};

@@ -14,7 +14,9 @@ const Post = ({ response }) => {
 }
 
 Post.getInitialProps = async function (ctx) {
-    const reportJson = await fetch(`http://192.168.1.4:2020/${ctx.query.uuid}/${ctx.query.id}`)
+    console.log(ctx.query.uuid)
+    console.log(ctx.query.id)
+    const reportJson = await fetch(`http://127.0.0.1:2020/${ctx.query.uuid}/${ctx.query.id}`)
         .then(res=> res.json()).then(res => { return res });
     return {
         response: reportJson

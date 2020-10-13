@@ -7,23 +7,51 @@ const StyledBodyReports = styled.div`
     height: 100%;
 `
 
+const SlyledHeader =styled.div`
+    display: flex;
+    justify-content: center;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 56px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #111111;
+
+    p {
+        margin: 60px 0 60px 0
+    }
+`
+
 const StyledLeftPanel = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 25%;
-    height: 2000px;
-    background-color: #FF9640;
+    margin-left: 100px;
+    width: 20%;
+    border-right: 1px solid;
+    border-color: rgba(193, 199, 203, 0.6);
 
     div {
         text-align: center;
         width: 100%;
         padding: 20px 0px 20px 0px;
         cursor: pointer;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: -0.02em;
+
+        color: #111111;
     }
 
     div:hover {
-        background-color: #FF7400;
+        background-color: rgba(193, 199, 203, 0.5);
     }
 `
 
@@ -45,13 +73,18 @@ const Body = ({ json }) => {
         setTest(time);
         serNubberArray(i);
     }
-
     return (
-        <StyledBodyReports>
+        <>
+            <SlyledHeader>
+                <p>
+                    Результаты тестирования
+                </p>
+            </SlyledHeader>
+            <StyledBodyReports>
             <StyledLeftPanel>
                 {
                     json.shortDashboard.map((item, i) => {
-                        const getTime = Object.keys(item)[0];
+                        const getTime = item[`${Object.keys(item)[0]}`].creationTime;
                         const allMonth = [ 'January',
                             'February',
                             'March',
@@ -71,7 +104,7 @@ const Body = ({ json }) => {
                         const minute = date.getMinutes();
                         const month = date.getMonth();
                         return(
-                            <div key={i} onClick={() => chooseTime(getTime, i)}>{`${day} ${allMonth[month]} - ${hour}:${minute}`}</div>
+                            <div key={i} onClick={() => chooseTime(Object.keys(item)[0], i)}>{`${day} ${allMonth[month]} - ${hour}:${minute}`}</div>
                         )
                     }
                     )    
@@ -82,10 +115,11 @@ const Body = ({ json }) => {
                     currentTest === '' && <h1>Выберете время запуска теста</h1>
                 }
                 {
-                    currentTest != '' && <Dashboard uuid={currentTest} json={json.shortDashboard[currentNUmberArray][currentTest]}/>
+                    currentTest != '' && <Dashboard uuid={currentTest} json={json.shortDashboard[currentNUmberArray][currentTest].tests}/>
                 }
             </StyledDashboardPanel>
         </StyledBodyReports>
+        </>
     );
 }
 

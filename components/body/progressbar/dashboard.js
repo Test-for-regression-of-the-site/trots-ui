@@ -1,85 +1,61 @@
 import styled from 'styled-components';
-import ProgressBar from './progressbar';
-import Link from 'next/link';
+import SortToggle from './sortToggle';
+import Bar from './bar';
+import { useState, useEffect } from 'react';
 
-const Wrapper = styled.div`
+const StyledSortPanel = styled.div`
     display: flex;
-    flex-direction: column;
-    width: 100%;
-
-    & .resultTest {
-        height: 100%;
-        padding: 5px;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    & .siteLink {
-        height: 15%;
-        text-align: center;
-        background-color: #179af5;
-    }
-
-    & .resultBar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 85%;
-        border-bottom: 1px solid black;
-        background: #d6eaf8;
-    }
-
-    & h3 {
-        margin: 0;
-    }
-
-    & .buttonSeeMore {
-        text-decoration: none;
-        outline: none;
-        display: inline-block;
-        width: 140px;
-        height: 45px;
-        line-height: 45px;
-        border-radius: 45px;
-        margin: 10px 20px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 11px;
-        text-transform: uppercase;
-        text-align: center;
-        letter-spacing: 3px;
-        font-weight: 600;
-        color: #423f3e;
-        background: white;
-        box-shadow: 0 8px 15px rgba(0,0,0,.1);
-        transition: .3s;
-    }
-
-    & .buttonSeeMore:hover {
-        box-shadow: 0 15px 20px rgba(46,229,157,.4);
-        transform: translateY(-7px);
-    }
+    justify-content: flex-end;
+    width: 93%;
 `
 
-const Dashboard = ({ json, uuid }) => {
-    return (
-        json.map(item => {
-            return(
-                <Wrapper key={item.id}>
-                    <div className="resultTest">
-                        <div className="siteLink">
-                            <h3>{item.url}</h3>
-                        </div>
-                        <div className="resultBar">
-                            <ProgressBar json={item}/>
-                            <Link href={`/p?uuid=${`${uuid}?id=${item.id}`}`} as={`/p/${`${uuid}?id=${item.id}`}`}>
-                                <a className="buttonSeeMore">
-                                    Подробнее
-                                </a>
-                            </Link>
-                        </div>
-                    </div>
-                </Wrapper>)   
+function sortDashboard(json, unit, status) {
+    const needString = unit[0].toLowerCase() + unit.slice(1).replace(/\s+/g, '');
+    console.log(needString)
+    if(status == false) {
+        return json.sort((a,b) => {
+            return b[needString] - a[needString]
         })
+    }
+    return json.sort((a,b) => a[needString] - b[needString])
+}
+
+
+const Dashboard = ({ json, uuid }) => {
+    const initialState = {
+        Performance: true,
+        Accessibility: true,
+        BestPractices: true,
+        SEO: true,
+        ProgressiveWebApp: true,
+    }
+
+    const [type, setType] = useState(initialState);
+    const [currentSort, setCarrentSort] = useState({Performance: true})
+    const [allDashboard, setSort] = useState(json);
+
+    function chooseToggle(typeToggle, status) {
+        setType(Object.assign(initialState, { [typeToggle]: status }));
+        setCarrentSort({ [typeToggle]: status })
+    }
+
+    useEffect(() => {
+        const unit = Object.keys(currentSort)[0];
+        setSort(sortDashboard(json, unit, currentSort[unit]));
+        console.log(allDashboard)
+    })
+
+    return (
+        <>
+            <StyledSortPanel >
+                <SortToggle type="Performance" status={type['Performance']} chanche={chooseToggle} />
+                <SortToggle type="Accessibility" status={type['Accessibility']} chanche={chooseToggle} />
+                <SortToggle type="Best Practices" status={type['BestPractices']} chanche={chooseToggle} />
+                <SortToggle type="SEO" status={type['SEO']} chanche={chooseToggle} />
+                <SortToggle type="Progressive Web App" status={type['ProgressiveWebApp']} chanche={chooseToggle} />
+            </StyledSortPanel>
+            <Bar allDashboard={allDashboard} uuid={uuid} />
+        </>
     );
 }
 

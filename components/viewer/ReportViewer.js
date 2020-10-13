@@ -5,6 +5,7 @@ import ReportRenderer from "./render/report-renderer";
 import ReportUIFeatures from "./render/report-ui-features";
 import Logger from "./render/logger";
 import Template from "./Template";
+import Header from '../Header/Header';
 
 class ReportViewer extends Component {
   
@@ -58,6 +59,7 @@ class ReportViewer extends Component {
         <div>
           <Template />
         </div>
+        <Header />
         <main className="react-lighthouse-viewer">
           {/* report populated here */}
         </main>
