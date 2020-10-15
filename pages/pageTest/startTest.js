@@ -6,13 +6,21 @@ const StyledStartTest = styled.div`
     width: 100%;
 `
 
-const PageStartTest = () => {
+const PageStartTest = ({ status }) => {
     return(
         <StyledStartTest>
             <Header />
-            <FormStartTest />
+            <FormStartTest status={status}/>
         </StyledStartTest>
     )
+}
+
+PageStartTest.getInitialProps = async () =>  {
+    const reportJson = await fetch('http://127.0.0.1:1234/tasks/dashboard')
+        .then(res => res.json()).then(res => { return res })
+    return {
+        status: reportJson.processEnd
+    }
 }
 
 export default PageStartTest;

@@ -21,7 +21,6 @@
     "react": "^16.8.6",
     "react-circular-progressbar": "^2.0.1",
     "react-dom": "^16.8.6",
-    "react-lighthouse-viewer": "^1.0.8",
     "react-toggle": "^4.1.1",
     "styled-components": "^4.3.2"
   },

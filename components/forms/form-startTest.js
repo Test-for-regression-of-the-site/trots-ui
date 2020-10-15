@@ -69,8 +69,7 @@ const StyledFormComponents = styled.div`
     }
 `
 
-const FormStartTest = () => {
-
+const FormStartTest = ({ status }) => {
     const [currentValue, setValue] = useState({
         links: '',
         paralel:'',
@@ -110,17 +109,21 @@ const FormStartTest = () => {
 
         const time = new Date().getTime();
 
-        fetch('http://192.168.1.4:2020/startTest', {
+        fetch('http://127.0.0.1:1234/tasks', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                time: time,
+                timeCreate: time,
                 links: currentValue.links,
-                paralel: currentValue.paralel,
-                typetest: currentValue.typetest
+                parallel: currentValue.paralel,
+                testType: currentValue.typetest
             })
+        }).then(res => {
+            if(res.status == 200) {
+                window.location.assign('/pageTest/viewReports');
+            }
         });
 
         event.preventDefault();
@@ -130,7 +133,6 @@ const FormStartTest = () => {
             typetest: ''
         });
 
-        window.location.assign('/pageTest/viewReports');
     }
     return(
         <StyledForm>
@@ -178,7 +180,7 @@ const FormStartTest = () => {
                         name="links" 
                         onChange={handleChangeLinks} />
                     </label>
-                    <input className="sendForm" type="submit" value="Отправить" />
+                    <input className="sendForm" type="submit" value="Отправить" disabled={!status}/>
                 </StyledFormComponents>
             </form>
         </StyledForm>

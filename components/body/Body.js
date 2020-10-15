@@ -65,6 +65,7 @@ const StyledDashboardPanel = styled.div`
 `
 
 const Body = ({ json }) => {
+    const getAllUuid = Object.keys(json.shortDashboard);
 
     const [ currentTest, setTest ] = useState('');
     const [ currentNUmberArray, serNubberArray] = useState('');
@@ -83,8 +84,8 @@ const Body = ({ json }) => {
             <StyledBodyReports>
             <StyledLeftPanel>
                 {
-                    json.shortDashboard.map((item, i) => {
-                        const getTime = item[`${Object.keys(item)[0]}`].creationTime;
+                    Object.values(json.shortDashboard).map((item, i) => {
+                        const getTime = item.creationTime;
                         const allMonth = [ 'January',
                             'February',
                             'March',
@@ -104,7 +105,7 @@ const Body = ({ json }) => {
                         const minute = date.getMinutes();
                         const month = date.getMonth();
                         return(
-                            <div key={i} onClick={() => chooseTime(Object.keys(item)[0], i)}>{`${day} ${allMonth[month]} - ${hour}:${minute}`}</div>
+                            <div key={i} onClick={() => chooseTime(item.creationTime, i)}>{`${day} ${allMonth[month]} - ${hour}:${minute}`}</div>
                         )
                     }
                     )    
@@ -115,7 +116,7 @@ const Body = ({ json }) => {
                     currentTest === '' && <h1>Выберете время запуска теста</h1>
                 }
                 {
-                    currentTest != '' && <Dashboard uuid={currentTest} json={json.shortDashboard[currentNUmberArray][currentTest].tests}/>
+                    currentTest != '' && <Dashboard uuid={getAllUuid[currentNUmberArray]} json={json.shortDashboard[getAllUuid[currentNUmberArray]].tests}/>
                 }
             </StyledDashboardPanel>
         </StyledBodyReports>
