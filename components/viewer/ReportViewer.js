@@ -1,49 +1,29 @@
-import React, { Component } from "react";
+import React from 'react';
+import DOM from './render/dom';
+import ReportRenderer from './render/report-renderer';
+import ReportUIFeatures from './render/report-ui-features';
+import __html from './Template.js';
 
-import DOM from "./render/dom";
-import ReportRenderer from "./render/report-renderer";
-import ReportUIFeatures from "./render/report-ui-features";
-import Logger from "./render/logger";
-import Template from "./Template";
-import Header from '../Header/Header';
+export const Template = () => {
+  return <div dangerouslySetInnerHTML={{ __html: __html }} />;
+};
 
-class ReportViewer extends Component {
-  
-  componentDidMount() {
-    this.event();
-  }
-  componentDidMount() {
-    this.generateReport();
-  }
+export default function ReportViewer({
+  id = 'react-lighthouse-viewer',
+  json = {},
+}) {
+  React.useEffect(() => {
+    if (Object.keys(json).length === 0) return;
+    if (json) {
+      generateReport();
+    }
+  }, [json]);
 
-  event() {
-    document.addEventListener("lh-log", e => {
-      const logger = new Logger(document.querySelector("#lh-log"));
-      switch (e.detail.cmd) {
-        case "log":
-          logger.log(e.detail.msg);
-          break;
-        case "warn":
-          logger.warn(e.detail.msg);
-          break;
-        case "error":
-          logger.error(e.detail.msg);
-          break;
-        case "hide":
-          logger.hide();
-          break;
-        default:
-      }
-    });
-  }
-
-  generateReport() {
-    const { json } = this.props;
-
+  const generateReport = () => {
     const dom = new DOM(document);
     const renderer = new ReportRenderer(dom);
 
-    const container = document.querySelector("main.react-lighthouse-viewer");
+    const container = document.querySelector(`#${id}`);
 
     renderer.renderReport(json, container);
 
@@ -51,22 +31,12 @@ class ReportViewer extends Component {
     // is in the document.
     const features = new ReportUIFeatures(dom);
     features.initFeatures(json);
-  }
+  };
 
-  render() {
-    return (
-      <div className="lh-root lh-vars">
-        <div>
-          <Template />
-        </div>
-        <Header />
-        <main className="react-lighthouse-viewer">
-          {/* report populated here */}
-        </main>
-        <div id="lh-log" />
-      </div>
-    );
-  }
+  return (
+    <div className="lh-root lh-vars">
+      <Template />
+      <div id={id} />
+    </div>
+  );
 }
-
-export default ReportViewer;
