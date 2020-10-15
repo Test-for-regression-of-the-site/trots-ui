@@ -88,6 +88,7 @@ const Wrapper = styled.div`
 `
 
 const Bar = ({ allDashboard, uuid}) => {
+    console.log(allDashboard[0].id)
     return(
         allDashboard.map(item => {
             return(
@@ -98,7 +99,7 @@ const Bar = ({ allDashboard, uuid}) => {
                         </div>
                         <div className="resultBar">
                             <ProgressBar json={item}/>
-                            <Link href={`/p?uuid=${`${uuid}?id=${item.id}`}`} as={`/p/${`${uuid}?id=${item.id}`}`}>
+                            <Link href={`/report?uuid=${`${uuid}?id=${item.id}`}`} as={`/report/${`${uuid}?id=${item.id}`}`}>
                                 <a className="buttonSeeMore">
                                     Подробнее
                                 </a>

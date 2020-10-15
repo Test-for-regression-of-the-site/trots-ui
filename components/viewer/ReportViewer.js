@@ -3,6 +3,7 @@ import DOM from './render/dom';
 import ReportRenderer from './render/report-renderer';
 import ReportUIFeatures from './render/report-ui-features';
 import __html from './Template.js';
+import Header from '../Header/Header';
 
 export const Template = () => {
   return <div dangerouslySetInnerHTML={{ __html: __html }} />;
@@ -34,9 +35,12 @@ export default function ReportViewer({
   };
 
   return (
-    <div className="lh-root lh-vars">
-      <Template />
-      <div id={id} />
-    </div>
+	<>
+		<Header />
+		<div className="lh-root lh-vars">
+			<Template />
+			<div id={id} />
+		</div>
+	</>
   );
 }

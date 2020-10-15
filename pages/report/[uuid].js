@@ -4,11 +4,10 @@ import { useRouter } from 'next/router';
 import fetch from 'isomorphic-unfetch';
 
 const Post = ({ response }) => {
-    const router = useRouter();
+    useRouter();
     return (
         <Wrapper>
             <ReportViewer json={response} />
-            <p>{router.query.title}</p>
         </Wrapper>
     );
 }
