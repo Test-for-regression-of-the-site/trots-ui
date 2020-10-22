@@ -65,15 +65,25 @@ const StyledDashboardPanel = styled.div`
 `
 
 const Body = ({ json }) => {
-    const getAllUuid = Object.keys(json.shortDashboard);
-
     const [ currentTest, setTest ] = useState('');
     const [ currentNUmberArray, serNubberArray] = useState('');
+
+    let entries = Object.entries(json.shortDashboard);
+    const sorted = entries.sort((a, b) => b[1].creationTime - a[1].creationTime);
+
+    const validOblect = {};
+    sorted.forEach(([a, b]) => {
+
+        validOblect[a] = b
+    });
+
+    const getAllUuid = Object.keys(validOblect);
 
     function chooseTime(time, i) {
         setTest(time);
         serNubberArray(i);
     }
+
     return (
         <>
             <SlyledHeader>
@@ -84,7 +94,7 @@ const Body = ({ json }) => {
             <StyledBodyReports>
             <StyledLeftPanel>
                 {
-                    Object.values(json.shortDashboard).map((item, i) => {
+                    Object.values(validOblect).map((item, i) => {
                         const getTime = item.creationTime;
                         const allMonth = [ 'January',
                             'February',
@@ -99,8 +109,8 @@ const Body = ({ json }) => {
                             'November',
                             'December' 
                         ];
-                        const date = new Date(+getTime);
-                        const day = date.getDay();
+                        const date = new Date(getTime);
+                        const day = date.getDate();
                         const hour = date.getHours();
                         const minute = date.getMinutes();
                         const month = date.getMonth();
