@@ -159,6 +159,7 @@ const FormStartTest = ({ status }) => {
         paralel:'',
         typetest: '',
         trotling: {
+            method: '',
             simulate: false,
             Kbps: null, 
             downloadKbps: null,
@@ -214,6 +215,21 @@ const FormStartTest = ({ status }) => {
                     [name]: value
                 }
         });
+    };
+
+    function handleChangeTrotlMethod(event) {
+        const target = event.target;
+        const value =  target.value;
+        const name = target.name;
+        setValue({
+            ...currentValue,
+            trotling: 
+                {
+                    ...currentValue.trotling,
+                    simulate: true,
+                    [name]: value
+                }
+        });
     }
 
     function handleSubmit(event) {
@@ -237,13 +253,6 @@ const FormStartTest = ({ status }) => {
                 window.location.assign('/pageTest/viewReports');
             }
         });
-        console.log({
-            timeCreate: time,
-            links: currentValue.links,
-            parallel: currentValue.paralel,
-            testType: currentValue.typetest,
-            trotling: currentValue.trotling
-        })
 
         event.preventDefault();
         setValue({
@@ -251,6 +260,7 @@ const FormStartTest = ({ status }) => {
             paralel:'',
             typetest: '',
             trotling: {
+                method: '',
                 simulate: false,
                 Kbps: null, 
                 downloadKbps: null,
@@ -278,7 +288,7 @@ const FormStartTest = ({ status }) => {
                             <label className="select-form">
                                 Количество параллельных запусков
                                 <select value={currentValue.paralel} onChange={handleChangeParalel} name="paralel" className="form-control">
-                                    <option value="select">Введите количество</option>
+                                    <option value="select">Выбирите количество</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -321,6 +331,12 @@ const FormStartTest = ({ status }) => {
                                 </div>
                                 {currentStatisTrot && 
                                     <label className="addTrotlingOptins">
+                                        <select value={currentValue.trotling.method} onChange={handleChangeTrotlMethod} name="method" className="form-typeTrotl">
+                                            <option value="select">Выбирите метод</option>
+                                            <option value="devtools">devtools</option>
+                                            <option value="provided">provided</option>
+                                            <option value="simulate">simulate</option>
+                                        </select>
                                         <input type="text" placeholder="Kbps" name="Kbps" onChange={handleChangeTrotling} />
                                         <input type="text" placeholder="downloadKbps" name="downloadKbps" onChange={handleChangeTrotling} />
                                         <input type="text" placeholder="uploadKbps" name="uploadKbps" onChange={handleChangeTrotling} />
